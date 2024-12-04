@@ -12,7 +12,7 @@ namespace ToDoAPI.Controllers
         private readonly IAuthService _authService = authService;
         private readonly IUserService _userService = userService;
         [HttpPost("register")]
-        public ActionResult Register(RegisterDto userForRegisterDto)
+        public IActionResult Register(RegisterDto userForRegisterDto)
         {
             var userExists = _authService.UserExists(userForRegisterDto.Email);
             if (!userExists.Success)
@@ -31,7 +31,7 @@ namespace ToDoAPI.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult Login(LoginDto loginDto)
+        public IActionResult Login(LoginDto loginDto)
         {
             var userToLogin = _authService.Login(loginDto);
             if (!userToLogin.Success)
@@ -45,6 +45,17 @@ namespace ToDoAPI.Controllers
             }
             else
                 return BadRequest(result.Message);
+        }
+
+        [HttpGet("getUser:{userId:int:min(1)}")]
+        public IActionResult GetUser(int userId)
+        {
+            var result = _userService.GetById(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }else
+                return BadRequest(result);
         }
     }
 }

@@ -22,6 +22,10 @@ namespace Business.Dependency.Autofac
 			builder.RegisterType<EfUserDal>().As<IUserDal>().SingleInstance();
 			builder.RegisterType<UserManager>().As<IUserService>().InstancePerDependency();
 			builder.RegisterType<AuthManager>().As<IAuthService>().InstancePerDependency();
+
+			builder.RegisterType<EfToDoDal>().As<IToDoDal>().SingleInstance();
+			builder.RegisterType<ToDoManager>().As<IToDoService>().SingleInstance();
+
 			builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
             builder.RegisterType<AppDbContext>().As<AppDbContext>().SingleInstance();
 		

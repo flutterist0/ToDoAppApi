@@ -35,6 +35,7 @@ namespace Core.Helpers.Security.JWT
 
             return new AccessToken
             {
+                UserId = user.Id,
                 Expiration = _expirationDate,
                 Token = token,
             };
